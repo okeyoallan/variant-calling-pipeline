@@ -1,0 +1,4 @@
+GCF_000017985.1_ASM1798v1_genomic.fna
+GCF_000017985.1_ASM1798v1_genomic.gbff
+GCF_000017985.1_ASM1798v1_genomic.gff
+
