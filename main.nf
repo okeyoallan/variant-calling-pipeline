@@ -7,13 +7,13 @@ nextflow.enable.dsl = 2
 include { QUALITY_CHECK; MULTIQC; TRIMMOMATIC; POST_FASTQC; MULTIQC_P; ALIGNMENT; MERGE_SAM; CONVERT_TO_BAM; REMOVE_DUPLICATES; CREATE_SEQ_DICTIONARY; BASERECALIBRATION; VARIANT_CALL; VARIANT_FILTER; DECOMPOSITION; ANNOTATION } from "./Modules/gatkHC.nf"
 
 // set input channels
-Channel.fromFilePairs( params.total_reads, checkExists:true )
+Channel.fromFilePairs( params.reads, checkExists:true )
         .set { read_pairs_ch }
 
-Channel.fromPath ( params.reference, checkIfExists:true )
+Channel.fromPath ( params.genome, checkIfExists:true )
         .set { reference_ch }
 
-Channel.fromPath (params.knownsites, checkIfExists:true )
+Channel.fromPath (params.variants, checkIfExists:true )
 	.set { known_ch }
 
 Channel.fromPath ( params.adapter, checkIfExists:true )
