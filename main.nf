@@ -7,7 +7,7 @@ nextflow.enable.dsl = 2
 include { QUALITY_CHECK; MULTIQC; TRIMMOMATIC; POST_FASTQC; MULTIQC_P; ALIGNMENT; MERGE_SAM; CONVERT_TO_BAM; REMOVE_DUPLICATES; CREATE_SEQ_DICTIONARY; BASERECALIBRATION; VARIANT_CALL; VARIANT_FILTER; DECOMPOSITION; ANNOTATION } from "./Modules/gatkHC.nf"
 
 // set input channels
-Channel.fromFilePairs( params.reads, checkExists:true )
+/*  Channel.fromFilePairs( params.reads, checkExists:true )
         .set { read_pairs_ch }
 
 Channel.fromPath ( params.genome, checkIfExists:true )
@@ -18,7 +18,12 @@ Channel.fromPath (params.variants, checkIfExists:true )
 
 Channel.fromPath ( params.adapter, checkIfExists:true )
        .set { adapter_ch }
-
+*/
+  read_pairs_ch = Channel.fromFilePairs( params.reads, checkExists:true )
+  reference_ch = Channel.fromPath ( params.genome, checkIfExists:true )
+  known_ch  = Channel.fromPath (params.variants, checkIfExists:true )
+  adapter_ch = Channel.fromPath ( params.adapter, checkIfExists:true )
+   
 // Run the workflow
 workflow {
 // step 1a Quality Checking
