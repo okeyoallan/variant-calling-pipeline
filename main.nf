@@ -23,6 +23,7 @@ Channel.fromPath ( params.adapter, checkIfExists:true )
   reference_ch = Channel.fromPath ( params.genome, checkIfExists:true )
   known_ch  = Channel.fromPath (params.variants, checkIfExists:true )
   adapter_ch = Channel.fromPath ( params.adapter, checkIfExists:true )
+  
    
 // Run the workflow
 workflow {
