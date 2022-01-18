@@ -45,4 +45,4 @@
 #	tail -n 5 snpEff.config
 # build a database for annotating the variants
 	java -jar snpEff.jar build -gff3 -v IL3000 
-	java ijar snpEff.jar  eff IL3000 ${decomvar}  > ${annota_var}
+	java -jar snpEff.jar  eff IL3000 ${decomvar}  > ${annota_var}
