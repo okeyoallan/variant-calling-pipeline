@@ -338,20 +338,6 @@ process ANNOTATION {
       script:
       annota_var = "SRR_anno_variants.vcf"
 
-      """
-      # Download respective genbank file for CP000819 E-coli strain
-      #mkdir CP000819 in snpEff/data \
-      # && rename the downloaded genebank file to genes.gbk \
-      # save it to snpEff/data/CP000819
-      # Edit the snpEff.config file as:
-      # Database for Escherichia coli CP000819
-                     # CP000819.genome : Escherichia coli
-                     # CP000819.reference : https://www.ncbi.nlm.nih.gov/nuccore/CP000819
-      # Build reference database
-
-       java -jar /node/cohort4/allan/variant-calls/variant-calling-pipeline/GATK/snpEff/snpEff.jar build -gff3 -v IL3000 
-       java -jar  /node/cohort4/allan/variant-calls/variant-calling-pipeline/GATK/snpEff/snpEff.jar eff IL3000 ${decomvar}  > ${annota_var}
-
-      """
+      templates 'speffdb.sh'
 }
 
