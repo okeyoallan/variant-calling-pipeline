@@ -217,7 +217,9 @@ process CREATE_SEQ_DICTIONARY {
         fai = "${reference_ch}.fai"
 
         """
-	
+	val = ${reference_ch}
+	file = val.split('.')
+	dict = file[0]
 	gatk CreateSequenceDictionary -R ${reference_ch} > ${dict}.dict
 
         samtools faidx ${reference_ch} > ${fai}
