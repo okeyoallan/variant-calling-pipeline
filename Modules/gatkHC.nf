@@ -210,7 +210,7 @@ process CREATE_SEQ_DICTIONARY {
 	path reference_ch
 
         output:
-        path "*.dict", emit: dict
+        path "ecoli_rel606.dict", emit: dict
         path "${reference_ch}.fai", emit: index
 
         script:
