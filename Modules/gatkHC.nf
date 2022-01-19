@@ -217,7 +217,7 @@ process CREATE_SEQ_DICTIONARY {
         fai = "${reference_ch}.fai"
 
         """
-	gatk CreateSequenceDictionary -R ${reference_ch} > ${reference}.dict
+	gatk CreateSequenceDictionary -R ${reference_ch} > ${reference_ch}.dict
 
         samtools faidx ${reference_ch} > ${fai}
         """
