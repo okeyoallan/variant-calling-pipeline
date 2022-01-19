@@ -210,14 +210,14 @@ process CREATE_SEQ_DICTIONARY {
 	path reference_ch
 
         output:
-        path "${reference}.dict", emit: dict
+     
         path "${reference_ch}.fai", emit: index
 
         script:
         fai = "${reference_ch}.fai"
 
         """
-	gatk CreateSequenceDictionary -R ${reference_ch} > ${reference_ch}.dict
+	# gatk CreateSequenceDictionary -R ${reference_ch} > ${reference_ch}.dict
 
         samtools faidx ${reference_ch} > ${fai}
         """
