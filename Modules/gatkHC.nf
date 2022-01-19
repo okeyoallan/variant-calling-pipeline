@@ -214,12 +214,11 @@ process CREATE_SEQ_DICTIONARY {
         path "${reference_ch}.fai", emit: index
 
         script:
-	val = ${reference_ch}.splt('.')
-	dict = val[0]
         fai = "${reference_ch}.fai"
 
         """
-	# gatk CreateSequenceDictionary -R ${reference_ch} > ${dict}.dict
+	
+	gatk CreateSequenceDictionary -R ${reference_ch} > ${dict}.dict
 
         samtools faidx ${reference_ch} > ${fai}
         """
