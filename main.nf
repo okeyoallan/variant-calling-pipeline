@@ -9,19 +9,19 @@ include { QUALITY_CHECK; MULTIQC; TRIMMOMATIC; POST_FASTQC; MULTIQC_P; ALIGNMENT
 // set input channels
 
 Channel
-	.fromFilePairs( params.reads, checkExists:true )
+	.fromFilePairs( params.reads)
         .set { read_pairs_ch }
 
 Channel
-	.from( params.genome, checkIfExists:true )
+	.from( params.genome)
         .set { reference_ch }
 
 Channel
-	.from(params.variants, checkIfExists:true )
+	.from(params.variants)
 	.set { known_ch }
 
 Channel
-	.from( params.adapter, checkIfExists:true )
+	.from( params.adapter)
        .set { adapter_ch }
 
    
