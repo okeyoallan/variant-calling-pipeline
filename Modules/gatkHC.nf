@@ -219,8 +219,13 @@ process CREATE_SEQ_DICTIONARY {
 	
 	
         """
-	templates "sample.py"
+	#!/usr/envs python
+	# bring the file 
+	file = ${reference_ch}.split('.')
+	file_subset = file[0]
+	dict = file_subset
 	
+	#!/usr/bin/bash
 	gatk CreateSequenceDictionary -R ${reference_ch} > ${dict}.dict
 
         samtools faidx ${reference_ch} > ${fai}
