@@ -214,8 +214,10 @@ process CREATE_SEQ_DICTIONARY {
         path "${reference_ch}.fai", emit: index
 
         script:
-        fai = "${reference_ch}.fai"
-	template "sample.py"
+	path "${dict}.dict", emit: dicts
+        fai = "${reference_ch}.fai", emit: index
+	
+	templates "sample.py"
         """
 	gatk CreateSequenceDictionary -R ${reference_ch} > ${dict}.dict
 
