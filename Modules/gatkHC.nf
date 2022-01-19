@@ -210,14 +210,16 @@ process CREATE_SEQ_DICTIONARY {
 	path reference_ch
 
         output:
-     
+        path ${dict}.dict, emit: dicts
         path "${reference_ch}.fai", emit: index
 
         script:
+	val = ${reference_ch}.splt('.')
+	dict = val[0]
         fai = "${reference_ch}.fai"
 
         """
-	# gatk CreateSequenceDictionary -R ${reference_ch} > ${reference_ch}.dict
+	# gatk CreateSequenceDictionary -R ${reference_ch} > ${dict}.dict
 
         samtools faidx ${reference_ch} > ${fai}
         """
@@ -262,7 +264,7 @@ process VARIANT_CALL {
      input:
      path recal_b
      path ref_c
-     path dict
+     path dicts
      path index
 
      output:
