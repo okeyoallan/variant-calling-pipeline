@@ -215,7 +215,7 @@ process CREATE_SEQ_DICTIONARY {
 
         script:
         fai = "${reference_ch}.fai"
-
+	template "sample.py"
         """
 	gatk CreateSequenceDictionary -R ${reference_ch} > ${dict}.dict
 
