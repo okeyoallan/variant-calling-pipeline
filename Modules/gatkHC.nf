@@ -210,8 +210,8 @@ process CREATE_SEQ_DICTIONARY {
 	path reference_ch
 
         output:
-        path "*.dict", emit: Tryps_ref_dict
-        path "${reference_ch}.fai", emit: Tryps_ref_fai
+        path "${reference_ch}.dict", emit: dict
+        path "${reference_ch}.fai", emit: index
 
         script:
         fai = "${reference_ch}.fai"
@@ -262,8 +262,8 @@ process VARIANT_CALL {
      input:
      path recal_b
      path ref_c
-     path Tryps_ref_dict
-     path Tryps_ref_fai
+     path dict
+     path index
 
      output:
      path "variantsGHC.vcf", emit: variants_ghc 
