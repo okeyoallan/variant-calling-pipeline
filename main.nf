@@ -20,7 +20,7 @@ Channel.fromPath (params.variants, checkIfExists:true )
 Channel.fromPath ( params.adapter, checkIfExists:true )
        .set { adapter_ch }
 */
-  read_pairs_ch = Channel.fromFilePairs( reads, checkExists:true )
+  read_pairs_ch = Channel.fromFilePairs ( reads, checkExists:true )
   reference_ch = Channel.fromPath ( genome, checkIfExists:true )
   known_ch  = Channel.fromPath ( variants, checkIfExists:true )
   adapter_ch = Channel.fromPath ( adapter, checkIfExists:true )
