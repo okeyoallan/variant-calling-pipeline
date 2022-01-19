@@ -202,7 +202,30 @@ process REMOVE_DUPLICATES {
 
 // Process 6 sequence dictionary. Tool: gatk CreateSequenceDictionary
 
+// process CREATE_SEQ_DICTIONARY {
 process CREATE_SEQ_DICTIONARY {
+        publishDir path: "${params.outdir}"
+        tag " Creating Sequence Dictionary"
+
+        input:
+        path reference_ch
+
+        output:
+        path "TriTrypDB-52_TcongolenseIL3000_Genome.dict", emit: Tryps_ref_dict
+        path "TriTrypDB-52_TcongolenseIL3000_Genome.fasta.fai", emit: Tryps_ref_fai
+
+        script:
+        fai = "TriTrypDB-52_TcongolenseIL3000_Genome.fasta.fai"
+
+        """
+        gatk CreateSequenceDictionary -R ${reference_ch}
+
+        samtools faidx ${reference_ch} > ${fai}
+        """
+}
+
+
+/*
         publishDir path: "${params.outdir}"
         tag " Creating Sequence Dictionary"
 
@@ -230,6 +253,7 @@ process CREATE_SEQ_DICTIONARY {
         """
 	}
 
+*/
 
 // Process 7 Indexing and BaseRecalibration. Tool: gatk 
 process BASERECALIBRATION{
