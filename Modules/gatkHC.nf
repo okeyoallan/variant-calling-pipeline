@@ -210,11 +210,10 @@ process CREATE_SEQ_DICTIONARY {
 	path reference_ch
 
         output:
-        path "${dict}.dict", emit: dicts
+        path "${subset}.dict", emit: dicts
         path "${reference_ch}.fai", emit: index
 
         script:
-	path "${dict}.dict", emit: dicts
         fai = "${reference_ch}.fai", emit: index
 	
 	
@@ -222,15 +221,14 @@ process CREATE_SEQ_DICTIONARY {
 	#!/usr/envs python
 	# bring the file 
 	file = ${reference_ch}.split('.')
-	file_subset = file[0]
-	dict = file_subset
+	subset = file[0]
 	
 	#!/usr/bin/bash
-	gatk CreateSequenceDictionary -R ${reference_ch} > ${dict}.dict
+	gatk CreateSequenceDictionary -R ${reference_ch} > ${subset}.dict
 
         samtools faidx ${reference_ch} > ${fai}
         """
-}
+	}
 
 
 // Process 7 Indexing and BaseRecalibration. Tool: gatk 
