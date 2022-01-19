@@ -13,23 +13,17 @@ Channel
         .set { read_pairs_ch }
 
 Channel
-	.fromPath ( params.genome, checkIfExists:true )
+	.from( params.genome, checkIfExists:true )
         .set { reference_ch }
 
 Channel
-	.fromPath (params.variants, checkIfExists:true )
+	.from(params.variants, checkIfExists:true )
 	.set { known_ch }
 
 Channel
-	.fromPath ( params.adapter, checkIfExists:true )
+	.from( params.adapter, checkIfExists:true )
        .set { adapter_ch }
 
-
- /* read_pairs_ch = Channel.fromFilePairs( params.reads, checkExists:true )
-  reference_ch = Channel.fromPath( params.genome, checkIfExists:true )
-  known_ch  = Channel.fromPath( params.variants, checkIfExists:true )
-  adapter_ch = Channel.fromPath( params.adapter, checkIfExists:true )
-  */
    
 // Run the workflow
 workflow {
