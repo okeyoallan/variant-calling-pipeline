@@ -210,7 +210,7 @@ process CREATE_SEQ_DICTIONARY {
 	path reference_ch
 
         output:
-        path "${reference_ch}.dict", emit: dict
+        path "*.dict", emit: dict
         path "${reference_ch}.fai", emit: index
 
         script:
