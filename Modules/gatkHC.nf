@@ -210,11 +210,11 @@ process CREATE_SEQ_DICTIONARY {
 	path reference_ch
 
         output:
-        path "TriTrypDB-52_TcongolenseIL3000_Genome.dict", emit: Tryps_ref_dict
-        path "TriTrypDB-52_TcongolenseIL3000_Genome.fasta.fai", emit: Tryps_ref_fai
+        path "*.dict", emit: Tryps_ref_dict
+        path "${reference_ch}.fai", emit: Tryps_ref_fai
 
         script:
-        fai = "TriTrypDB-52_TcongolenseIL3000_Genome.fasta.fai"
+        fai = "${reference_ch}.fai"
 
         """
 	gatk CreateSequenceDictionary -R ${reference_ch} 
