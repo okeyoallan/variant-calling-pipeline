@@ -203,7 +203,7 @@ process REMOVE_DUPLICATES {
 // Process 6 sequence dictionary. Tool: gatk CreateSequenceDictionary
 
 // process CREATE_SEQ_DICTIONARY {
-process CREATE_SEQ_DICTIONARY {
+/* process CREATE_SEQ_DICTIONARY {
         publishDir path: "${params.outdir}"
         tag " Creating Sequence Dictionary"
 
@@ -223,6 +223,7 @@ process CREATE_SEQ_DICTIONARY {
         """
 }
 
+*/
 
 /*
         publishDir path: "${params.outdir}"
