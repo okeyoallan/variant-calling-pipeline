@@ -213,14 +213,14 @@ process REMOVE_DUPLICATES {
 
         output:
         path "ecoli_rel606.dict", emit: dict_ch
-        path "${reference_ch}.fai", emit: index_ch
+        path "${fai}", emit: index_ch
 
         script:
 	fai = ${reference_ch}.fai
         """
         gatk CreateSequenceDictionary -R ${reference_ch} 
 
-        samtools faidx ${reference_ch} > 
+        samtools faidx ${reference_ch} > ${fai}
         """
 }
 
