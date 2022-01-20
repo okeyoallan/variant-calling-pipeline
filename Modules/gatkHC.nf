@@ -212,11 +212,11 @@ process REMOVE_DUPLICATES {
         path reference_ch
 
         output:
-        path "TriTrypDB-52_TcongolenseIL3000_Genome.dict", emit: dict_ch
-        path "TriTrypDB-52_TcongolenseIL3000_Genome.fasta.fai", emit: index_ch
+        path "*.dict", emit: dict_ch
+        path "${.fai}", emit: index_ch
 
         script:
-	fai = "TriTrypDB-52_TcongolenseIL3000_Genome.fasta.fai"
+	fai = "${reference_ch}.fai"
         """
         gatk CreateSequenceDictionary -R ${reference_ch} 
 
