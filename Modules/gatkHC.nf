@@ -213,7 +213,7 @@ process REMOVE_DUPLICATES {
 
         output:
         path "*.dict", emit: dict_ch
-        path "${.fai}", emit: index_ch
+        path "$fai", emit: index_ch
 
         script:
 	fai = "${reference_ch}.fai"
