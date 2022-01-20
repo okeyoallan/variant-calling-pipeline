@@ -213,10 +213,10 @@ process REMOVE_DUPLICATES {
 
         output:
         path "ecoli_rel606.dict", emit: dict_ch
-        path "${fai}", emit: index_ch
+        path "ecoli_rel606.fasta.fai", emit: index_ch
 
         script:
-	fai = ${reference_ch}.fai
+	fai = ecoli_rel606.fasta.fai
         """
         gatk CreateSequenceDictionary -R ${reference_ch} 
 
