@@ -204,7 +204,7 @@ process REMOVE_DUPLICATES {
 
 // process CREATE_SEQ_DICTIONARY 
 
-/*  process CREATE_SEQ_DICTIONARY {
+ process CREATE_SEQ_DICTIONARY {
         publishDir path: "${params.outdir}"
         tag " Creating Sequence Dictionary"
 
@@ -212,18 +212,18 @@ process REMOVE_DUPLICATES {
         path reference_ch
 
         output:
-        path "ecoli_rel606.dict", emit: Tryps_ref_dict
-        path "ecoli_rel606.fasta.fai", emit: Tryps_ref_fai
+        path "ecoli_rel606.dict", emit: dict_ch
+        path "${reference_ch}.fai", emit: index_ch
 
         script:
-
+	fai = ${reference_ch}.fai
         """
-        gatk CreateSequenceDictionary -R ${reference_ch} > ecoli_rel606.dict
+        gatk CreateSequenceDictionary -R ${reference_ch} 
 
-        samtools faidx ${reference_ch} > ${reference_ch}.fai
+        samtools faidx ${reference_ch} > 
         """
 }
-*/
+
 
  
 
@@ -265,8 +265,8 @@ process VARIANT_CALL {
      input:
      path recal_b
      path ref_c
-     path dicts
-     path index
+     path dict_ch
+     path index_ch
 
      output:
      path "variantsGHC.vcf", emit: variants_ghc 
