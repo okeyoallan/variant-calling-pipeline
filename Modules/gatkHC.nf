@@ -202,8 +202,9 @@ process REMOVE_DUPLICATES {
 
 // Process 6 sequence dictionary. Tool: gatk CreateSequenceDictionary
 
-// process CREATE_SEQ_DICTIONARY {
-/* process CREATE_SEQ_DICTIONARY {
+// process CREATE_SEQ_DICTIONARY 
+
+/*  process CREATE_SEQ_DICTIONARY {
         publishDir path: "${params.outdir}"
         tag " Creating Sequence Dictionary"
 
@@ -222,38 +223,9 @@ process REMOVE_DUPLICATES {
         samtools faidx ${reference_ch} > ${reference_ch}.fai
         """
 }
-
 */
 
-/*
-        publishDir path: "${params.outdir}"
-        tag " Creating Sequence Dictionary"
-
-        input:
-	path reference_ch
-
-        output:
-        path "${subset}.dict", emit: dicts
-        path "${fai}", emit: index
-
-        script:
-        fai = "${reference_ch}.fai", emit: index
-	
-	
-        """
-	#!/usr/envs python
-	# bring the file 
-	file = ${reference_ch}.split('.')
-	subset = file[0]
-	
-	#!/usr/bin/bash
-	gatk CreateSequenceDictionary -R ${reference_ch} > ${subset}.dict
-
-        samtools faidx ${reference_ch} > ${fai}
-        """
-	}
-
-*/
+ 
 
 // Process 7 Indexing and BaseRecalibration. Tool: gatk 
 process BASERECALIBRATION{
