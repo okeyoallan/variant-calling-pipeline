@@ -46,15 +46,13 @@ process TRIMMOMATIC {
 	tag "Trimming raw reads"
 
 	input:
-	tuple val(sample_id), path(reads)
+	tuple val(sample_id), path(reads_ch)
 	path adapter
 
 	output:
 	tuple path(fq_1_paired), path(fq_2_paired)
 
 	script:
-	foward = ${reads[0]}
-	reverse = ${reads[1]}
 	fq_1_paired = sample_id + '_R1.paired.fastq'
 	fq_1_unpaired = sample_id + '_R1.unpaired.fastq'
 	fq_2_paired = sample_id + '_R2.paired.fastq'
@@ -63,8 +61,8 @@ process TRIMMOMATIC {
 	"""
 	trimmomatic \
 	PE -phred33 \
-	$foward \
-	$reverse \
+	${reads_ch[0]} \
+	${reads_ch[1]} \
 	$fq_1_paired \
 	$fq_1_unpaired \
 	$fq_2_paired \
