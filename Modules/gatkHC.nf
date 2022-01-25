@@ -126,7 +126,7 @@ process ALIGNMENT{
     	script:
 	sample_id = ( read_R1 =~ /(.+)_R1.paired.fastq/ )[0][1]
     
-        template 'align.sh'
+        templates 'align.sh'
 }
 
 // Process 3 Merge samfiles. Tool: Samtools merge
