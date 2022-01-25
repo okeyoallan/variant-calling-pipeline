@@ -62,7 +62,7 @@ process TRIMMOMATIC {
 	trimmomatic \
 	PE -phred33 \
 	${reads[0]} \
-	${reads[2]} \
+	${reads[1]} \
 	$fq_1_paired \
 	$fq_1_unpaired \
 	$fq_2_paired \
