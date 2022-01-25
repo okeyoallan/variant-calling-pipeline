@@ -121,11 +121,12 @@ process ALIGNMENT{
     	tuple path(read_R1), path(read_R2)
 
     	output:
-    	path "${sample_id}.sam", emit: aligned_sam
+    	path "$aligned", emit: aligned_sam
 
     	script:
 	sample_id = ( read_R1 =~ /(.+)_R1.paired.fastq/ )[0][1]
-    
+        aligned = "${sample_id}.sam"
+	
         template 'align.sh'
 }
 
