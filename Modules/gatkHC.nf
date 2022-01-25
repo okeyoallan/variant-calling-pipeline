@@ -46,7 +46,7 @@ process TRIMMOMATIC {
 	tag "Trimming raw reads"
 
 	input:
-	tuple val(sample_id), path(reads_ch)
+	tuple val(sample_id), path(reference_ch)
 	path adapter
 
 	output:
@@ -61,8 +61,8 @@ process TRIMMOMATIC {
 	"""
 	trimmomatic \
 	PE -phred33 \
-	${reads_ch[0]} \
-	${reads_ch[1]} \
+	${reference_ch[0]} \
+	${reference_ch[1]} \
 	$fq_1_paired \
 	$fq_1_unpaired \
 	$fq_2_paired \
