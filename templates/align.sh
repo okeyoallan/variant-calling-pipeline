@@ -1,5 +1,5 @@
 
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 #Indexing the file
 bwa index ${ref_ch}
