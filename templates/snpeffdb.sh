@@ -66,4 +66,6 @@ mv GCA_000227395.2_ASM22739v2_translated_cds.faa cds.fa
 
 # build a database for annotating the variants
         java -Xmx20g -jar snpEff.jar build -v IL3000 2>&1 | tee IL3000.build
+	
+# Annotate variants 
 	java -jar snpEff.jar  eff IL3000 ${decomvar}  > ${annota_var}
