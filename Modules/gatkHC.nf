@@ -249,7 +249,7 @@ process BASERECALIBRATION{
 	Recal = "recal.bam"
 
 	"""
-	gatk IndexFeatureFile -I ${knownch} 
+	gatk IndexFeatureFile -F ${knownch} 
 
 	gatk BaseRecalibrator -I ${marked_dp} --known-sites ${knownch} -R ${ref_ch} -O ${Rtable}
 
