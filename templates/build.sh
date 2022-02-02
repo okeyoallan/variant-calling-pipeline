@@ -1,7 +1,7 @@
     
     #!/usr/bin/env bash
 
-    wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip
+    wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip 
     unzip snpEff_latest_core.zip
     rm snpEff_latest_core.zip
         cd ./snpEff/
@@ -28,4 +28,4 @@ nano snpEff.config | echo "# Database for Trypanosoma congolense, IL3000" >> snp
 java -jar snpEff.jar build -gtf22 -v IL3000
 
 # annotate
-java -jar snpEff.jar  eff IL3000 ${decomvar} > ${annota_var}
+java -jar snpEff.jar eff IL3000 ${decomvar} > ${annota_var}
