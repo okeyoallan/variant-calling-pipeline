@@ -2,7 +2,7 @@
 
 # This script is a snipet of steps to follow to creating a snpeff database for your organism
 # in the cases your organism's  database is not pre-built in the snpeff database
-# install snpeff
+# install snpeff binaries
         wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip
 # unpack snpeff executables
         unzip snpEff_latest_core.zip
@@ -10,7 +10,7 @@
         rm snpEff_latest_core.zip
 # move into the sneff directory
         cd ./snpEff/
-        echo $(pwd)
+       
 # You can copy the lines of code above, run them on the command line interface,
 # then run the command 
 # java -jar snpEff.jar databases | grep <your organism's name> for example 
@@ -23,8 +23,7 @@
 # make a directory 'IL3000' and  'genomes' in './data' directory
         mkdir -p ./data/IL3000 ./data/genomes
         cd ./data/IL3000
-        echo $(pwd)
-# download Trypanosoma congolense gff file
+	# download Trypanosoma congolense gff file
         wget https://ftp.ncbi.nlm.nih.gov/genomes/genbank/protozoa/Trypanosoma_congolense/latest_assembly_versions/GCA_000227395.2_ASM22739v2/GCA_000227395.2_ASM22739v2_genomic.gff.gz
 
 # unzip then rename genes.gff
@@ -48,7 +47,7 @@ mv GCA_000227395.2_ASM22739v2_translated_cds.faa cds.fa
 
 # move into 'genomes' dir and download the reference genome
         cd ../genomes
-        echo $(pwd)
+        
         wget https://ftp.ncbi.nlm.nih.gov/genomes/genbank/protozoa/Trypanosoma_congolense/latest_assembly_versions/GCA_000227395.2_ASM22739v2/GCA_000227395.2_ASM22739v2_genomic.fna.gz
 
 # Unzip then rename to IL3000.fa
@@ -57,7 +56,7 @@ mv GCA_000227395.2_ASM22739v2_translated_cds.faa cds.fa
 
 # move back into 'snpEff' dir and edit the 'snpEff.config' file
         cd ../../
-        echo $(pwd)
+        
 	
 # edit 'snpEff.config' to add a genome
 
