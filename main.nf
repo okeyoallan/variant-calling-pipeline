@@ -22,13 +22,13 @@ Channel.fromFilePairs( params.reads, checkExists:true )
 Channel.fromPath ( params.genome, checkIfExists:true )
         .set { reference_ch }
 
-if (params.knownsites)
+if (params.variants)
 Channel.fromPath (params.variants)
         .set { known_ch }
 
 Channel.fromPath ( params.adapter, checkIfExists:true )
        .set { adapter_ch }
-
+if (params.snpeffdb)
 Channel.fromPath ( params.snpeffdb, checkIfExists:true ) 
         .set { snpeff_ch }
        
