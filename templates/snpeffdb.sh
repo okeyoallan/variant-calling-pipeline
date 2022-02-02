@@ -60,8 +60,8 @@ mv GCA_000227395.2_ASM22739v2_translated_cds.faa cds.fa
 	
 # edit 'snpEff.config' to add a genome
 
-        nano snpEff.config | echo "# Database for Trypanosoma congolense" >> snpEff.config | echo "IL3000.genome : Trypanosoma congolense IL3000" >> snpEff.config |
- echo "IL3000.reference :  https://ftp.ncbi.nlm.nih.gov/genomes/genbank/protozoa/Trypanosoma_congolense/latest_assembly_versions/GCA_000227395.2_ASM22739v2/GCA_000227395.2_ASM22739v2_genomic.fna.gz" >> snpEff.config
+        nano snpEff.config | echo "# Database for Trypanosoma congolense" >> snpEff.config | echo "IL3000.genome : Trypanosoma congolense IL3000" >> snpEff.config | echo "IL3000.genome : IL3000 " |
+ echo "IL3000.reference :https://ftp.ncbi.nlm.nih.gov/genomes/genbank/protozoa/Trypanosoma_congolense/latest_assembly_versions/GCA_000227395.2_ASM22739v2/GCA_000227395.2_ASM22739v2_genomic.fna.gz" >> snpEff.config
 
 # build a database for annotating the variants
         java -Xmx20g -jar snpEff.jar build -v IL3000 2>&1 | tee IL3000.build
