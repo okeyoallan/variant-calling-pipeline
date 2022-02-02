@@ -1,4 +1,5 @@
-#!/usr/bin/bash
+    
+    #!/usr/bin/env bash
 
     wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip
     unzip snpEff_latest_core.zip
