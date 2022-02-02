@@ -22,12 +22,10 @@ mv GCA_000227395.2_ASM22739v2_genomic.gtf genes.gtf
 
 # config
 cd ../
-nano snpEff.config | echo "# Database for Trypanosoma congolense, IL3000" >> snpEff.config |
-echo "IL3000.genome : Trypanosoma congolense " >> snpEff.config |
-echo "IL3000.reference :https://ftp.ncbi.nlm.nih.gov/genomes/genbank/protozoa/Trypanosoma_congolense/latest_assembly_versions/GCA_000227395.2_ASM22739v2/GCA_000227395.2_ASM22739v2_genomic.fna.gz" >> snpEff.config
+nano snpEff.config | echo "# Database for Trypanosoma congolense, IL3000" >> snpEff.config | echo "IL3000.genome : Trypanosoma congolense " >> snpEff.config | echo "IL3000.reference : https://ftp.ncbi.nlm.nih.gov/genomes/genbank/protozoa/Trypanosoma_congolense/latest_assembly_versions/GCA_000227395.2_ASM22739v2/GCA_000227395.2_ASM22739v2_genomic.fna.gz" >> snpEff.config
 
 # build
 java -jar snpEff.jar build -gtf22 -v IL3000
 
 # annotate
-java -jar snpEff.jar  eff IL3000 ${normvar}  > ${annota_var
+ava -jar snpEff.jar  eff IL3000 ${decomvar} > ${annota_var}
