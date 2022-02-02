@@ -342,6 +342,6 @@ process ANNOTATION {
       script:
       annota_var = "SRR_anno_variants.vcf"
 
-      template 'speffdb.sh'
+      template 'snpeffdb.sh'
 }
 
