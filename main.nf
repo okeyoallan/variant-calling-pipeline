@@ -2,29 +2,56 @@
 
 nextflow.enable.dsl = 2
 
+
+
+println """
+===========================================
+      MBBU VARIANT CALLING PIPELINE
+============================================
+"""
+
+
 // import modules here
 
-include { QUALITY_CHECK; MULTIQC; TRIMMOMATIC; POST_FASTQC; MULTIQC_P; ALIGNMENT; MERGE_SAM; CONVERT_TO_BAM; REMOVE_DUPLICATES; CREATE_SEQ_DICTIONARY; BASERECALIBRATION; VARIANT_CALL; VARIANT_FILTER; DECOMPOSITION; ANNOTATION } from "./Modules/gatkHC.nf"
+include { QUALITY_CHECK;
+MULTIQC; TRIMMOMATIC;
+POST_FASTQC; MULTIQC_P;
+ALIGNMENT; MERGE_SAM;
+CONVERT_TO_BAM;
+REMOVE_DUPLICATES;
+CREATE_SEQ_DICTIONARY;
+VARIANT_CALL_1;
+VARIANT_FILTER_1;
+BASERECALIBRATION_1;
+VARIANT_CALL_2;
+VARIANT_FILTER_2;
+BASERECALIBRATION_2;
+BASERECALIBRATION;
+VARIANT_CALL;
+VARIANT_FILTER;
+NORMALIZATION;
+ANNOTATION }
+from "./modules/gatkHC.nf"
 
 // set input channels
-
-Channel
-	.fromFilePairs( params.reads)
+Channel.fromFilePairs( params.total_reads, checkExists:true )
         .set { read_pairs_ch }
 
-Channel
-	.from( params.genome)
+Channel.fromPath ( params.reference, checkIfExists:true )
         .set { reference_ch }
 
-Channel
-	.from(params.variants)
-	.set { known_ch }
+if (params.knownsites)
+Channel.fromPath (params.knownsites)
+        .set { known_ch }
 
-Channel
-	.from( params.adapter)
+Channel.fromPath ( params.adapter, checkIfExists:true )
        .set { adapter_ch }
 
-   
+Channel.fromPath ( params.snpeff_data, checkIfExists:true )
+       .set { snpeff_ch }
+
+
+
 // Run the workflow
 workflow {
 // step 1a Quality Checking
@@ -57,19 +84,45 @@ REMOVE_DUPLICATES(CONVERT_TO_BAM.out.sort_bam)
 // step 6 creating sequence dictionary
 CREATE_SEQ_DICTIONARY(reference_ch)
 
+// step first round uncalibrated to generate knownsites
+VARIANT_CALL_1( REMOVE_DUPLICATES.out.marked_dups, reference_ch, CREATE_SEQ_DICTIONARY.out)
+
+// filtering raw variants
+VARIANT_FILTER_1(VARIANT_CALL_1.out)
+
+// Baserecalibration first round for filtered raw variants
+BASERECALIBRATION_1(VARIANT_FILTER_1.out, REMOVE_DUPLICATES.out.marked_dups, reference_ch, CREATE_SEQ_DICTIONARY.out)
+
+// Second round of variant calling to generate knownsites vcf
+VARIANT_CALL_2( BASERECALIBRATION_1.out.recal_bam_1, reference_ch, CREATE_SEQ_DICTIONARY.out)
+
+// filtering second round of raw variants
+VARIANT_FILTER_2(VARIANT_CALL_2.out)
+
 // step 7 Baserecalibration
-BASERECALIBRATION(known_ch, REMOVE_DUPLICATES.out.marked_dups, reference_ch, CREATE_SEQ_DICTIONARY.out)
+BASERECALIBRATION_2(VARIANT_FILTER_2.out, REMOVE_DUPLICATES.out.marked_dups, reference_ch, CREATE_SEQ_DICTIONARY.out)
+
+
+
+// step 7 Baserecalibration when one has their knownsite
+if (params.knownsites)
+BASERECALIBRATION( known_ch, REMOVE_DUPLICATES.out.marked_dups, reference_ch, CREATE_SEQ_DICTIONARY.out)
 
 // step 8 variant calling
-VARIANT_CALL(BASERECALIBRATION.out.recal_bam, reference_ch, CREATE_SEQ_DICTIONARY.out)
+if (params.knownsites)
+VARIANT_CALL(BASERECALIBRATION.out.recal_bam,  reference_ch, CREATE_SEQ_DICTIONARY.out)
+if (!params.knownsites)
+VARIANT_CALL(BASERECALIBRATION_2.out.recal_bam,  reference_ch, CREATE_SEQ_DICTIONARY.out)
+
+
 
 // step 9 variant filter
 VARIANT_FILTER(VARIANT_CALL.out)
 
-// step 10 decomposition
-DECOMPOSITION(VARIANT_FILTER.out, reference_ch)
+// step 10 Normalization
+NORMALIZATION(VARIANT_FILTER.out, reference_ch, CREATE_SEQ_DICTIONARY.out)
 
 // step 11 annotation
-ANNOTATION(DECOMPOSITION.out)
+ANNOTATION(NORMALIZATION.out, snpeff_ch)
 
 }
