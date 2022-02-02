@@ -31,7 +31,7 @@ VARIANT_CALL;
 VARIANT_FILTER;
 NORMALIZATION;
 ANNOTATION }
-from "./modules/gatkHC.nf"
+from "./Modules/gatkHC.nf"
 
 // set input channels
 Channel.fromFilePairs( params.total_reads, checkExists:true )
