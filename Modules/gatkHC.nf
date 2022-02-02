@@ -250,7 +250,7 @@ process VARIANT_CALL_1 {
 
 
      when:
-     !params.knownsites
+     !params.varaints
 
      script:
      raw_variants = "raw_variants.vcf"
@@ -426,7 +426,7 @@ process BASERECALIBRATION{
         Recal = "recal.bam"
 
 
-        if (params.knownsites)
+        if (params.variants)
 
         """
         gatk IndexFeatureFile -F  ${knownch}
@@ -538,7 +538,7 @@ process ANNOTATION {
 
       script:
       annota_var = "SRR_anno_variants.vcf"
-      if (!params.snpeff_data)
+      if (!params.snpeffdb)
 
       template 'snpeffdb.sh'
 
