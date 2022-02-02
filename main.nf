@@ -16,21 +16,23 @@ VARIANT CALLING PIPELINE USING GATK4 BEST PRACTICES
 include { QUALITY_CHECK; MULTIQC; TRIMMOMATIC; POST_FASTQC; MULTIQC_P; ALIGNMENT; MERGE_SAM; CONVERT_TO_BAM; REMOVE_DUPLICATES; CREATE_SEQ_DICTIONARY; VARIANT_CALL_1; VARIANT_FILTER_1; BASERECALIBRATION_1; VARIANT_CALL_2; VARIANT_FILTER_2; BASERECALIBRATION_2; BASERECALIBRATION; VARIANT_CALL; VARIANT_FILTER; NORMALIZATION; ANNOTATION } from "./Modules/gatkHC.nf"
 
 // set input channels
-Channel.fromFilePairs( params.total_reads, checkExists:true )
+Channel.fromFilePairs( params.reads, checkExists:true )
         .set { read_pairs_ch }
 
-Channel.fromPath ( params.reference, checkIfExists:true )
+Channel.fromPath ( params.genome, checkIfExists:true )
         .set { reference_ch }
 
 if (params.knownsites)
-Channel.fromPath (params.knownsites)
+Channel.fromPath (params.variants)
         .set { known_ch }
 
 Channel.fromPath ( params.adapter, checkIfExists:true )
        .set { adapter_ch }
 
-Channel.fromPath ( params.snpeff_data, checkIfExists:true )
-       .set { snpeff_ch }
+Channel.fromPath ( params.snpeffdb, checkIfExists:true ) 
+        .set { snpeff_ch }
+       
+
 
 
 
