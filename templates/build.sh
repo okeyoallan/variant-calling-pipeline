@@ -27,3 +27,6 @@ echo "IL3000.reference :https://ftp.ncbi.nlm.nih.gov/genomes/genbank/protozoa/Tr
 
 # build
 java -jar snpEff.jar build -gtf22 -v IL3000
+
+# annotate
+java -jar snpEff.jar  eff IL3000 ${normvar}  > ${annota_var
