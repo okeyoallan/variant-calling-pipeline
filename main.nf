@@ -93,7 +93,7 @@ if (params.variants)
 BASERECALIBRATION( known_ch, REMOVE_DUPLICATES.out.marked_dups, reference_ch, CREATE_SEQ_DICTIONARY.out)
 
 // step 8 variant calling
-if (params.knownsites)
+if (params.variants)
 VARIANT_CALL(BASERECALIBRATION.out.recal_bam,  reference_ch, CREATE_SEQ_DICTIONARY.out)
 if (!params.variants)
 VARIANT_CALL(BASERECALIBRATION_2.out.recal_bam,  reference_ch, CREATE_SEQ_DICTIONARY.out)
