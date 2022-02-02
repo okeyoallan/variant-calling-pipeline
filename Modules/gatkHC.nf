@@ -310,7 +310,7 @@ process BASERECALIBRATION_1{
         Recal_1 = "recal.bam"
 
         """
-        gatk IndexFeatureFile -F  ${raw_filt}
+        gatk IndexFeatureFile -I  ${raw_filt}
 
         gatk BaseRecalibrator -I ${marked_dp} --known-sites ${raw_filt} -R ${ref_ch} -O ${Rtable_1}
 
@@ -393,7 +393,7 @@ process BASERECALIBRATION_2{
 
 
         """
-        gatk IndexFeatureFile -F  ${knownv}
+        gatk IndexFeatureFile -I  ${knownv}
 
         gatk BaseRecalibrator -I ${marked_dp} --known-sites ${knownv} -R ${ref_ch} -O ${Rtable}
 
@@ -429,7 +429,7 @@ process BASERECALIBRATION{
         if (params.variants)
 
         """
-        gatk IndexFeatureFile -F  ${knownch}
+        gatk IndexFeatureFile -I  ${knownch}
 
         gatk BaseRecalibrator -I ${marked_dp} --known-sites ${knownch} -R ${ref_ch} -O ${Rtable}
 
@@ -529,7 +529,7 @@ process ANNOTATION {
 
       input:
       path normvar
-      path snpeff_data
+      path snpeffdb
 
       output:
       path "SRR_anno_variants.vcf", emit: annotatevar
